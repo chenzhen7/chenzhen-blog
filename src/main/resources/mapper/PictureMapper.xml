@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenzhen.blog.mapper.PictureMapper">
+
+    <resultMap id="BaseResultMap" type="com.chenzhen.blog.pojo.Picture">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="pictureAddress" column="picture_address" jdbcType="VARCHAR"/>
+            <result property="pictureDescription" column="picture_description" jdbcType="VARCHAR"/>
+            <result property="pictureName" column="picture_name" jdbcType="VARCHAR"/>
+            <result property="pictureTime" column="picture_time" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,picture_address,picture_description,
+        picture_name,picture_time
+    </sql>
+</mapper>

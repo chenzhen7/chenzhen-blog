@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>友人帐-ChenZhen的客栈</title>
+    <meta name=”Description” Content=”ChenZhen的个人博客，友人帐页面，博客友链显示”>
+    <meta name=”Keywords” Content=”ChenZhen,博客,友人帐,友链″>
+    <link href="../static/images/favicon.ico" th:href="@{/images/me.jpg}" rel="icon" type="image/x-ico">
+    <link rel="stylesheet" href="../static/lib/semantic/dist/semantic.min.css" th:href="@{/lib/semantic/dist/semantic.min.css}">
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+</head>
+<body>
+
+<!--导航-->
+<nav th:replace="common :: navigate('friends')" class="gird-header">
+    <div class="ui m-container">
+        <div class="ui inverted secondary stackable menu">
+            <a href="#" th:href="@{/}" style="max-width: 200px"><h2 class="ui olive header item" style="font-family: STSong">ChenZhen</h2></a>
+            <!--<div class="right m-item item m-mobile-hide">-->
+                <a href="#" th:href="@{/}" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+                <a href="#" th:href="@{/types/}" class="m-item item m-mobile-hide"><i class="clone outline icon"></i>分类</a>
+                <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide"><i class="coffee icon"></i>流年记</a>
+                <a href="#" th:href="@{/music}" class="m-item item m-mobile-hide"><i class="music icon"></i>音乐盒</a>
+                <a href="#" th:href="@{/message}" class="m-item item m-mobile-hide"><i class="book icon"></i>留言板</a>
+                <a href="#" th:href="@{/friends}" class="active m-item item m-mobile-hide"><i class="pencil alternate icon"></i>友人帐</a>
+                <a href="#" th:href="@{/picture}" class="olive m-item item m-mobile-hide"><i class="image icon"></i>照片墙</a>
+                <a href="#" th:href="@{/resources}" class="m-item item m-mobile-hide"><i class="graduation cap icon"></i>资源库</a>
+                <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide"><i class="info icon"></i>关于我</a>
+                <a href="#" th:href="@{/admin}" class="right m-item item ui secondary basic button m-mobile-hide" target="_blank"><i class="sign in icon"></i>登录</a>
+
+        </div>
+    </div>
+    <a  class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+
+<!--顶部图片-->
+<div class="m-bg-type_outer" style="width: 100%;height: 50%">
+    <img src="../static/images/adminbg.jpg" th:src="@{/images/adminbg.jpg}" alt="" class="ui m-bg image" style="width: 100%;height: 100%">
+    <div class="m-bg-class_cover">
+        <div align="center">
+        <div class="ui container" align="center" style="position: relative ;bottom: -540px;" >
+            <div class="m-font-size-title " align="center" style="font-family:'STXingkai'">友人帐</div>
+            <div class="m-font-size-text-init-title m-margin-top" align="center">转瞬即逝的相逢与离别，每一个瞬间，我都想要珍惜</div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<!--中间内容-->
+<div  class="m-margin- animated fadeIn">
+    <div class="ui m-opacity container">
+        <div class="box-shadow-max">
+        <div class="ui segment m-padded-tb-large m-opacity">
+            <div class="ui container">
+                <div class="" style="font-size: 35px;font-weight: bold" align="center">友人入帐须知</div>
+                    <ui class="list">
+                        <div class="m-margin-left-mini m-margin-tb-tiny" style="font-size: large;font-weight: bold">网站要求</div>
+                        <br>
+                        <li class="m-margin-left-big m-margin-tb-tiny" style="font-size: medium">无色情内容，无政治敏感内容，网站要能长期正常访问</li>
+                        <li class="m-margin-left-big m-margin-tb-tiny" style="font-size: medium">两个月内有新文章更新</li>
+                        <li class="m-margin-left-big m-margin-tb-tiny" style="font-size: medium">原创博客、技术博客、游记博客优先</li>
+                        <li class="m-margin-left-big m-margin-tb-tiny" style="font-size: medium">需要交换友链，先把本站添加到你的网站中，然后根据下面的格式，给我发email或在留言板给我留言~</li>
+                        <br>
+                        <div class="m-margin-left-mini m-margin-tb-tiny" style="font-size: large;font-weight: bold">申请格式</div>
+                        <br>
+                        <li class="m-margin-left-big m-margin-tb-tiny" style="font-size: medium">博客标题：ChenZhen的客栈</li>
+                        <li class="m-margin-left-big m-margin-tb-tiny" style="font-size: medium">博客地址：https://xxxxxxx</li>
+                        <li class="m-margin-left-big m-margin-tb-tiny" style="font-size: medium">图片地址：https://xxxxxxx</li>
+                    </ui>
+            </div>
+        </div>
+        </div>
+
+        <!--友人帐区域-->
+        <div class="box-shadow-max">
+        <div class="ui top attached teal m-opacity segment box-shadow-max">
+            <div class="ui m-padded-tb-large m-container-tiny">
+                <div class="ui stackable m-container-mini m-opacity grid">
+
+                    <!--友人帐显示区域-->
+                    <div class="m-margin-tb-tiny four wide column" th:each="friendlink : ${friendlinks}">
+                        <a href="#" class="class_outer" th:href="@{${friendlink.blogAddress}}" target="_blank">
+                            <div align="center">
+                                <div class="friends-link" >
+                                    <div><img src="../static/images/me.jpg" th:src="@{${friendlink.pictureAddress}}"  alt="" style="height: 100%;width: 100%" class="friends-link-image bigger"></div>
+                                    <div class="m-margin-top">
+                                     <h4 class="m-font-size-text-friends m-margin-tb-tiny" th:text="${friendlink.blogName}">ChenZhen</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!--置顶图标-->
+<div id="toolbar" class="m-padded-tb-large m-fixed m-right-bottom">
+    <a href="#" class="ui center aligned basic segment icon"><i class="ui medium orange chevron up icon"></i> </a>
+</div>
+
+
+<br>
+<br>
+<!--底部栏-->
+<footer class="ui inverted vertical segment m-padded-tb-massive m-opacity">
+    <!--容器-->
+    <div class="ui center aligned container">
+      <div class="ui inverted divided stackable grid">
+        <div class="four wide column">
+          <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced m-margin-top-max" >联系我</div>
+          <!--<div id="newblog-container">-->
+          <!--<div class="ui inverted link list" th:fragment="newblogList">-->
+          <!--<a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">最新文章</a>-->
+          <!--</div>-->
+          <!--</div>-->
+          <div class="ui inverted link list">
+            <div href="#" class="m-text-thin">Email：1583296383@qq.com</div>
+            <div href="#" class="m-text-thin">QQ：1583296383</div>
+          </div>
+        </div>
+
+        <div class="four wide column" >
+          <div class="ui inverted link list">
+            <div class="item">
+              <!--微信二维码-->
+              <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced " >微信</div>
+              <img src="../static/images/wechat.jpg" th:src="@{/images/wechat.jpg}"  class="ui m-margin-top rounded image" alt="" style="width: 110px">
+            </div>
+          </div>
+        </div>
+
+        <div class="four wide column">
+          <div class="ui inverted link list">
+            <div class="item">
+              <!--微信二维码-->
+              <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced " >QQ</div>
+              <img src="../static/images/qq.jpg" th:src="@{/images/qq.jpg}"  class="ui m-margin-top rounded image" alt="" style="width: 110px">
+            </div>
+          </div>
+        </div>
+        <!--博客运行时间统计-->
+        <div class="four wide column">
+          <div style="font-size: large;font-weight: bold" class="ui inverted  m-text-thin m-text-spaced m-margin-top">客栈信息</div>
+          <!--<p id="htmer_time" class="item m-text-thin"></p>-->
+          <div id="blog-message">
+            <div class="ui inverted link list" style="align-content: center;margin-top: 10px" th:fragment="blogMessage">
+              <div class="m-text-thin" style="text-align: left;margin-left: 75px;">
+                文章总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${blogTotal}"> 14 </h2> 篇
+              </div>
+              <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                访问总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${blogViewTotal}"> 14 </h2> 次
+              </div>
+              <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                评论总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${blogCommentTotal}"> 14 </h2> 条
+              </div>
+              <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                留言总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${blogMessageTotal}"> 14 </h2> 条
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui inverted section divider"></div>
+      <div style="color: #F08047;margin-top: -18px" class="ui inverted m-text-thin m-text-spaced">我的客栈已营业：<span id="htmer_time" class="item m-text-thin"></span> (*๓´╰╯`๓)</div>
+      <a rel="nofollow" href="http://www.beian.miit.gov.cn" target="_blank">粤ICP备2022122083号-1</a>
+    </div>
+    </div>
+
+</footer>
+<!--    动态线条-->
+<script type="text/javascript" color="47,79,79" opacity='0.7' zIndex="-2" count="150" src="https://cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+<script src="../static/lib/jquery-3.2.1/jquery-3.2.1.min.js" th:src="@{/lib/jquery-3.2.1/jquery-3.2.1.min.js}"></script>
+<script src="../static/lib/semantic/dist/semantic.min.js" th:src="@{/lib/semantic/dist/semantic.min.js}"></script>
+
+
+<script>
+
+    // $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+
+    $('#blog-message').load(/*[[@{/footer/blogmessage}]]*/"/footer/blogmessage");
+
+    // 运行时间统计
+    function secondToDate(second) {
+        if (!second) {
+            return 0;
+        }
+        var time = new Array(0, 0, 0, 0, 0);
+        if (second >= 365 * 24 * 3600) {
+            time[0] = parseInt(second / (365 * 24 * 3600));
+            second %= 365 * 24 * 3600;
+        }
+        if (second >= 24 * 3600) {
+            time[1] = parseInt(second / (24 * 3600));
+            second %= 24 * 3600;
+        }
+        if (second >= 3600) {
+            time[2] = parseInt(second / 3600);
+            second %= 3600;
+        }
+        if (second >= 60) {
+            time[3] = parseInt(second / 60);
+            second %= 60;
+        }
+        if (second > 0) {
+            time[4] = second;
+        }
+        return time;
+    }
+    function setTime() {
+        /*此处为网站的创建时间*/
+        var create_time = Math.round(new Date(Date.UTC(2022, 8, 21, 15, 15, 15)).getTime() / 1000);
+        var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
+        currentTime = secondToDate((timestamp - create_time));
+        currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
+            + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
+            + '秒';
+        document.getElementById("htmer_time").innerHTML = currentTimeHtml;
+    }
+    setInterval(setTime, 1000);
+
+
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+</script>
+</body>
+</html>

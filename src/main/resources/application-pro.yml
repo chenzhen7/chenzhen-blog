@@ -1,0 +1,6 @@
+logging:
+  level:
+    root: warn
+    com.chenzhen: info
+  file:
+    path: log/blog-pro.log

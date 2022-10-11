@@ -1,0 +1,45 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: xxxx
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&rewriteBatchedStatements=true
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  mail:
+    host: smtp.qq.com  # 配置 smtp 服务器地址
+    port: 25  # smtp 服务器端口
+    username: xxxx #配置你的邮箱地址
+    password: xxxx #配置申请到的授权码
+    protocol: smtp #协议
+    thymeleaf-html: mail  #设置要解析发送的html模版
+#  redis:
+#    host: xxxxx #Redis服务器的Ip
+#    port: 6379
+#    password: xxxxx
+#    lettuce:
+#      pool:
+#        max-active: 8 # 最大连接
+#        max-idle: 8 # 最大空闲连接
+#        min-idle: 0 # 最小空闲连接
+#        max-wait: 100 # 连接等待时间
+mybatis-plus:
+  type-aliases-package: com.chenzhen.blog.pojo
+
+pagehelper:
+  auto-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  page-size-zero: true
+  params: count=countSql
+
+
+comment.avatar: /images/avatar.png
+message.avatar: /images/avatar.png

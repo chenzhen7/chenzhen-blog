@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>关于我-ChenZhen的客栈</title>
+    <meta name=”Description” Content=”ChenZhen的个人博客，专注于技术生活分享”>
+    <meta name=”Keywords” Content=”ChenZhen,关于我,陈震，个人博客″>
+
+    <link href="../static/images/favicon.ico" th:href="@{/images/me.jpg}" rel="icon" type="image/x-ico">
+    <link rel="stylesheet" href="../static/lib/semantic/dist/semantic.min.css" th:href="@{/lib/semantic/dist/semantic.min.css}">
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+
+</head>
+<body>
+
+<!--导航-->
+<nav th:replace="common :: navigate('about')" class="gird-header">
+    <div class="ui m-container">
+        <div class="ui inverted secondary stackable menu">
+            <!--<div class="right m-item item m-mobile-hide">-->
+                <a href="#" th:href="@{/}" style="max-width: 200px"><h2 class="ui olive header item" style="font-family: STSong">ChenZhen</h2></a>
+                <a href="#" th:href="@{/}" class="m-item item m-mobile-hide "><i class="home icon"></i>首页</a>
+                <a href="#" th:href="@{/types/}" class="m-item item m-mobile-hide"><i class="clone outline icon"></i>分类</a>
+                <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide"><i class="coffee icon"></i>流年记</a>
+                <a href="#" th:href="@{/music}" class="m-item item m-mobile-hide"><i class="music icon"></i>音乐盒</a>
+                <a href="#" th:href="@{/message}" class="m-item item m-mobile-hide"><i class="book icon"></i>留言板</a>
+                <a href="#" th:href="@{/friends}" class="m-item item m-mobile-hide"><i class="pencil alternate icon"></i>友人帐</a>
+<!--                <a href="#" th:href="@{/picture}" class="m-item item m-mobile-hide"><i class="image icon"></i>照片墙</a>-->
+<!--                <a href="#" th:href="@{/resources}" class="m-item item m-mobile-hide"><i class="graduation cap icon"></i>资源库</a>-->
+                <a href="#" th:href="@{/about}" class="active m-item item m-mobile-hide"><i class="info icon"></i>关于我</a>
+                <a href="#" th:href="@{/admin}" class="right m-item item ui secondary basic button m-mobile-hide" target="_blank"><i class="sign in icon"></i>登录</a>
+
+        </div>
+    </div>
+    <a  class="ui menu toggle black icon button m-right-top m-mobile-show" >
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+
+<!--顶部背景图片-->
+<div class="m-bg-type_outer" style="width: 100%;height: 50%">
+    <img src="../static/images/about.jpg" th:src="@{/images/about.jpg}" alt="" class="ui m-bg image" style="width: 100%;height: 100%">
+    <div class="m-bg-class_cover">
+        <div class="ui container" style="position: relative ;bottom: -540px;">
+            <div class="m-font-size-title" align="center" style="font-family:'STXingkai'">关于我</div>
+            <div class="m-font-size-text-init-title m-margin-top" align="center">头一次活这么久，记得善待自己</div>
+        </div>
+    </div>
+</div>
+
+<!--个人资料描述-->
+<div class="ui container m-opacity box-shadow-max">
+    <div class="ui segment m-margin-" align="center">
+        <div class="m-margin-top-large" align="center">
+            <img class="ui circular image" align="center" src="../static/images/me.jpg" th:src="@{/images/me.jpg}" style="width: 150px;height: 150px;">
+        </div>
+    <div class="m-margin-top-small" style="font-size: x-large;font-family: STSong" align="center">ChenZhen</div>
+
+    <div class="m-margin-top" align="center">
+<!--        <a href="#" class="ui tencent circular icon button"><i class="user icon"></i></a>-->
+        <a href="#" class="ui wechat circular icon button"><i class="weixin icon"></i></a>
+        <a href="#" class="ui qq circular icon button" data-content="1583296383" data-position="bottom center"><i class="qq icon"></i></a>
+        <a href="https://github.com/chenzhen7" target="_blank" class="ui github circular icon button" data-content="点击跳转GitHub" data-position="bottom center"><i class="github icon"></i></a>
+        <a href="https://blog.csdn.net/ShockChen7" target="_blank" class="ui csdn circular icon button" data-content="点击跳转CSDN" data-position="bottom center"><i class="copyright outline icon"></i></a>
+        <a href="#" class="ui email circular icon button" data-content="1583296383@qq.com" data-position="bottom center"><i class="envelope  icon"></i></a>
+    </div>
+
+<!--    <div class="ui tencent-qr flowing popup transition hidden">-->
+<!--        <img src="../static/images/me.jpg" th:src="@{/images/me.jpg}" alt="" class="ui rounded image" style="width: 110px">-->
+<!--        <div align="center">公众号</div>-->
+<!--    </div>-->
+    <div class="ui wechat-qr flowing popup transition hidden">
+        <img src="../static/images/wechat.jpg" th:src="@{/images/wechat.jpg}" alt="" class="ui rounded image" style="width: 110px">
+        <div align="center">微信</div>
+    </div>
+    <div class="ui qq-qr flowing popup transition hidden">
+        <img src="../static/images/qq.jpg" th:src="@{/images/qq.jpg}" alt="" class="ui rounded image" style="width: 110px">
+        <div align="center">QQ</div>
+    </div>
+        <hr class="m-margin-top-small" style="width: 30%">
+        <br>
+        <div>
+            <h4>感谢光临本站</h4>
+            <h4>”我是ChenZhen 00后 目前大三“</h4>
+            <h4>热爱编程 热爱音乐 喜欢打游戏 ACG爱好者</h4>
+            <h4>一名高级CV工程师</h4>
+            <h4>自学时长2年半 只学到到springboot</h4>
+            <h4>鉴定为春春的菜鸡</h4>
+            <h4>希望在学习路上能够一起进步</h4>
+            <p></p>
+            <p></p>
+        </div>
+        <hr class="m-margin-top-large">
+        <br>
+        <h2 class="m-margin-tb-tiny" style="font-size: xx-large;font-weight: bold;color: #F08047;font-family: STSong">打赏本站</h2>
+            <div class="ui orange basic label m-margin-tb-tiny">
+            <p style="font-size: medium">每一次提笔的我们，就像街边的街头艺人，用笔唱着自己的歌谣。如果有一天你感动了，那么期待您请我们来一杯咖啡</p>
+            </div>
+            <div class="ui orange basic label">
+                <div class="ui images" style="font-size: inherit !important;">
+                    <div class="image">
+                        <img src="../static/images/zhifupay.jpg" th:src="@{/images/zhifupay.jpg}" alt="" class="ui rounded bordered image" style="width: 180px">
+                        <div>支付宝</div>
+                    </div>
+                    <div class="image">
+                        <img src="../static/images/wechatpay.jpg" th:src="@{/images/wechatpay.jpg}" alt="" class="ui rounded bordered image" style="width: 180px">
+                        <div>微信</div>
+                    </div>
+                </div>
+            </div>
+    <!--<div class="hiddenDiv"></div>-->
+    </div>
+</div>
+
+
+<!--置顶图标-->
+<div id="toolbar" class="m-padded-tb-large m-fixed m-right-bottom">
+    <a href="#" class="ui center aligned basic segment icon"><i class="ui medium orange chevron up icon"></i> </a>
+</div>
+
+  <br>
+  <br>
+
+  <!--底部栏-->
+<footer class="ui inverted vertical segment m-padded-tb-massive m-opacity">
+    <!--容器-->
+    <div class="ui center aligned container">
+      <div class="ui inverted divided stackable grid">
+        <div class="four wide column">
+          <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced m-margin-top-max" >联系我</div>
+          <!--<div id="newblog-container">-->
+          <!--<div class="ui inverted link list" th:fragment="newblogList">-->
+          <!--<a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">最新文章</a>-->
+          <!--</div>-->
+          <!--</div>-->
+          <div class="ui inverted link list">
+            <div href="#" class="m-text-thin">Email：1583296383@qq.com</div>
+            <div href="#" class="m-text-thin">QQ：1583296383</div>
+          </div>
+        </div>
+
+        <div class="four wide column" >
+          <div class="ui inverted link list">
+            <div class="item">
+              <!--微信二维码-->
+              <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced " >微信</div>
+              <img src="../static/images/wechat.jpg" th:src="@{/images/wechat.jpg}"  class="ui m-margin-top rounded image" alt="" style="width: 110px">
+            </div>
+          </div>
+        </div>
+
+        <div class="four wide column">
+          <div class="ui inverted link list">
+            <div class="item">
+              <!--微信二维码-->
+              <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced " >QQ</div>
+              <img src="../static/images/qq.jpg" th:src="@{/images/qq.jpg}"  class="ui m-margin-top rounded image" alt="" style="width: 110px">
+            </div>
+          </div>
+        </div>
+        <!--博客运行时间统计-->
+        <div class="four wide column">
+          <div style="font-size: large;font-weight: bold" class="ui inverted  m-text-thin m-text-spaced m-margin-top">客栈信息</div>
+          <!--<p id="htmer_time" class="item m-text-thin"></p>-->
+          <div id="blog-message">
+            <div class="ui inverted link list" style="align-content: center;margin-top: 10px" th:fragment="blogMessage">
+              <div class="m-text-thin" style="text-align: left;margin-left: 75px;">
+                文章总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${blogTotal}"> 14 </h2> 篇
+              </div>
+              <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                访问总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${blogViewTotal}"> 14 </h2> 次
+              </div>
+              <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                评论总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${blogCommentTotal}"> 14 </h2> 条
+              </div>
+              <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                留言总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${blogMessageTotal}"> 14 </h2> 条
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui inverted section divider"></div>
+      <div style="color: #F08047;margin-top: -18px" class="ui inverted m-text-thin m-text-spaced">我的客栈已营业：<span id="htmer_time" class="item m-text-thin"></span> (*๓´╰╯`๓)</div>
+      <a rel="nofollow" href="http://www.beian.miit.gov.cn" target="_blank">粤ICP备2022122083号-1</a>
+    </div>
+    </div>
+
+</footer>
+<!--    动态线条-->
+<script type="text/javascript" color="47,79,79" opacity='0.7' zIndex="-2" count="150" src="https://cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+<script src="../static/lib/jquery-3.2.1/jquery-3.2.1.min.js" th:src="@{/lib/jquery-3.2.1/jquery-3.2.1.min.js}"></script>
+<script src="../static/lib/semantic/dist/semantic.min.js" th:src="@{/lib/semantic/dist/semantic.min.js}"></script>
+
+  <script>
+      // $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+
+      $('#blog-message').load(/*[[@{/footer/blogmessage}]]*/"/footer/blogmessage");
+
+
+    $('.menu.toggle').click(function () {
+      $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    // 显示公众号
+    $('.tencent').popup({
+        popup : $('.tencent-qr'),
+        position: 'bottom center'
+    });
+
+    // 显示微信
+    $('.wechat').popup({
+        popup : $('.wechat-qr'),
+        position: 'bottom center'
+    });
+
+    // 显示QQ
+    $('.qq').popup({
+        popup : $('.qq-qr'),
+        position: 'bottom center'
+    });
+
+    // 显示邮箱
+    $('.email').popup();
+
+    // 显示CSDN
+    $('.csdn').popup();
+
+      // 显示github
+      $('.github').popup();
+
+
+
+
+    // 运行时间统计
+    function secondToDate(second) {
+        if (!second) {
+            return 0;
+        }
+        var time = new Array(0, 0, 0, 0, 0);
+        if (second >= 365 * 24 * 3600) {
+            time[0] = parseInt(second / (365 * 24 * 3600));
+            second %= 365 * 24 * 3600;
+        }
+        if (second >= 24 * 3600) {
+            time[1] = parseInt(second / (24 * 3600));
+            second %= 24 * 3600;
+        }
+        if (second >= 3600) {
+            time[2] = parseInt(second / 3600);
+            second %= 3600;
+        }
+        if (second >= 60) {
+            time[3] = parseInt(second / 60);
+            second %= 60;
+        }
+        if (second > 0) {
+            time[4] = second;
+        }
+        return time;
+    }
+    function setTime() {
+        /*此处为网站的创建时间*/
+        var create_time = Math.round(new Date(Date.UTC(2022, 8, 21, 15, 15, 15)).getTime() / 1000);
+        var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
+        currentTime = secondToDate((timestamp - create_time));
+        currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
+            + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
+            + '秒';
+        document.getElementById("htmer_time").innerHTML = currentTimeHtml;
+    }
+    setInterval(setTime, 1000);
+
+
+  </script>
+</body>
+</html>

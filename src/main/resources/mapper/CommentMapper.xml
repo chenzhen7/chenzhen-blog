@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenzhen.blog.mapper.CommentMapper">
+
+    <resultMap id="BaseResultMap" type="com.chenzhen.blog.pojo.Comment">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="adminComment" column="admin_comment" jdbcType="BIT"/>
+            <association property="blog" javaType="Blog">
+                <id property="id" column="blog_id"></id>
+            </association>
+              <association property="parentComment" javaType="Comment">
+                <id property="id" column="parent_comment_id"></id>
+                <result property="nickname" column="parent_comment_nickname"></result>
+                <result property="email" column="parent_comment_email"></result>
+            </association>
+            <association property="rootComment" javaType="Comment">
+                <id property="id" column="root_comment_id"></id>
+                <result property="nickname" column="root_comment_nickname"></result>
+            </association>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,nickname,email,
+        content,avatar,create_time,
+        blog_id,parent_comment_id,admin_comment,
+        root_comment_id
+    </sql>
+
+    <select id="getRootCommentList" resultMap="BaseResultMap">
+        select id,nickname,email,content,avatar,create_time,blog_id,admin_comment,parent_comment_id,root_comment_id
+        from t_comment
+        where blog_id = #{blogId} and  root_comment_id is null
+        order by create_time desc
+    </select>
+
+    <insert id="saveComment">
+        insert into t_comment
+        ( nickname, email,
+         content, avatar, create_time,
+         admin_comment,blog_id,parent_comment_id,root_comment_id)
+        values ( #{nickname,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+                #{content,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+                #{adminComment}, #{blog.id}, #{parentComment.id},
+                #{rootComment.id})
+
+    </insert>
+
+    <select id="getReplyList" resultMap="BaseResultMap">
+        select c1.id,c1.nickname,c1.email,c1.content,c1.avatar,c1.create_time,c1.blog_id,c1.admin_comment,c1.parent_comment_id,c1.root_comment_id,c2.nickname parent_comment_nickname
+        from t_comment c1 join t_comment c2
+        on c1.parent_comment_id = c2.id
+        where c1.blog_id = #{blogId} and c1.root_comment_id = #{rootCommentId}
+
+    </select>
+
+
+</mapper>

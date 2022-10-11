@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenzhen.blog.mapper.TypeMapper">
+
+    <resultMap id="BaseResultMap" type="com.chenzhen.blog.pojo.Type">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <collection property="blogList" ofType="Blog">
+                <id property="id" column="b_id"></id>
+            </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name
+    </sql>
+    <select id="selectOneByName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_type
+        where
+        name = #{name,jdbcType=VARCHAR}
+    </select>
+
+    <select id="getTypeList" resultMap="BaseResultMap">
+        select t.id,t.name,b.id b_id
+        from t_type t left join t_blog b on t.id = b.type_id
+    </select>
+
+
+</mapper>

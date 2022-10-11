@@ -1,0 +1,6 @@
+logging:
+  level:
+    root: info
+    com.chenzhen.blog: debug
+  file:
+    path: log/blog-dev.log

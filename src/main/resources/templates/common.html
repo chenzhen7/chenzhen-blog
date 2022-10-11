@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--导航-->
+<nav th:fragment="navigate(active)" id="nav" class="gird-header"  >
+    <div class="ui m-container" >
+        <div class="ui inverted secondary stackable menu">
+            <a href="#" th:href="@{/}" style="max-width: 200px"><h2 class="ui olive header item" style="font-family: STSong">ChenZhen</h2></a>
+            <a href="#" th:href="@{/}" class=" m-item item m-mobile-hide" th:classappend="${active=='index'} ? active"><i class="home icon"></i>首页</a>
+            <a href="#" th:href="@{/types}" class="m-item item m-mobile-hide" th:classappend="${active=='type'} ? active" target="_blank"><i class="clone outline icon"></i>分类</a>
+            <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${active=='archives'} ? active" target="_blank"><i class="coffee icon"></i>流年记</a>
+            <a href="#" th:href="@{/music}" class="m-item item m-mobile-hide" th:classappend="${active=='music'} ? active" target="_blank"><i class="music icon"></i>音乐盒</a>
+            <a href="#" th:href="@{/message}" class="m-item item m-mobile-hide" th:classappend="${active=='message'} ? active" target="_blank"><i class="book icon"></i>留言板</a>
+            <a href="#" th:href="@{/friends}" class="m-item item m-mobile-hide" th:classappend="${active=='friends'} ? active" target="_blank"><i class="pencil alternate icon"></i>友人帐</a>
+<!--            <a href="#" th:href="@{/picture}" class="olive m-item item m-mobile-hide" th:classappend="${active=='picture'} ? active" target="_blank"><i class="image icon"></i>照片墙</a>-->
+<!--            <a href="#" th:href="@{/resources}" class="m-item item m-mobile-hide" th:classappend="${active=='resources'} ? active" target="_blank"><i class="graduation cap icon"></i>资源库</a>-->
+            <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${active=='about'} ? active" target="_blank"><i class="info icon"></i>关于我</a>
+            <a href="#" th:href="@{/admin}" class="right m-item item ui secondary basic button m-mobile-hide" target="_blank"><i class="sign in icon"></i>登录</a>
+
+        </div>
+
+    </div>
+    <a  class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+</body>
+</html>

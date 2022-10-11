@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenzhen.blog.mapper.MessageMapper">
+
+    <resultMap id="BaseResultMap" type="com.chenzhen.blog.pojo.Message">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="adminMessage" column="admin_message" jdbcType="BIT"/>
+            <association property="parentMessage" javaType="Message">
+            <id property="id" column="p_id"></id>
+            <result property="nickname" column="p_nickname"></result>
+            <result property="email" column="p_email"></result>
+            </association>
+            <association property="rootMessage" javaType="Message">
+            <id property="id" column="r_id"></id>
+            </association>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,nickname,email,
+        content,avatar,create_time,
+        parent_message_id,admin_message,root_message_id
+    </sql>
+
+
+    <select id="getMessageList" resultMap="BaseResultMap">
+            SELECT id,nickname,email,content,avatar,create_time,admin_message
+            FROM t_message
+            WHERE root_message_id IS NULL
+    </select>
+
+    <select id="getReplyList" resultMap="BaseResultMap">
+        SELECT m1.id,m1.nickname,m1.email,m1.content,m1.avatar,m1.create_time,m1.`admin_message`,
+               m1.parent_message_id,m1.root_message_id,m2.`id` p_id,m2.`nickname` p_nickname,m2.`email` p_email
+        FROM t_message m1
+                 join t_message m2
+                           ON m1.`parent_message_id` = m2.`id`
+        WHERE m1.`root_message_id`= #{rootMessageId}
+        order by m1.create_time desc
+    </select>
+
+    <insert id="saveMessage">
+        insert into t_message
+            (nickname,email,content,avatar,create_time,parent_message_id,admin_message,root_message_id)
+        values(#{nickname},#{email},#{content},#{avatar},#{createTime},#{parentMessage.id},#{adminMessage},#{rootMessage.id})
+    </insert>
+</mapper>

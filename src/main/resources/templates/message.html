@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>留言板-ChenZhen的客栈</title>
+    <meta name=”Description” Content=”ChenZhen的个人博客，留言板页面，博客留言信息显示”>
+    <meta name=”Keywords” Content=”ChenZhen,博客,留言板,留言″>
+  <link href="../static/images/favicon.ico" th:href="@{/images/favicon.ico}" rel="icon" type="image/x-ico">
+  <link rel="stylesheet" href="../static/lib/semantic/dist/semantic.min.css" th:href="@{/lib/semantic/dist/semantic.min.css}">
+  <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+</head>
+<body  >
+
+<!--导航-->
+<nav th:replace="common :: navigate('message')" class="gird-header">
+  <div class="ui m-container">
+    <div class="ui inverted secondary stackable menu">
+        <a href="#" th:href="@{/}" style="max-width: 200px"><h2 class="ui olive header item" style="font-family: STSong">ChenZhen</h2></a>
+      <!--<div class="right m-item item m-mobile-hide">-->
+        <a href="#" th:href="@{/}" class="m-item item m-mobile-hide "><i class="home icon"></i>首页</a>
+        <a href="#" th:href="@{/types/}" class="m-item item m-mobile-hide"><i class="clone outline icon"></i>分类</a>
+        <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide"><i class="coffee icon"></i>流年记</a>
+        <a href="#" th:href="@{/music}" class="m-item item m-mobile-hide"><i class="music icon"></i>音乐盒</a>
+        <a href="#" th:href="@{/message}" class="active m-item item m-mobile-hide"><i class="book icon"></i>留言板</a>
+        <a href="#" th:href="@{/friends}" class="m-item item m-mobile-hide"><i class="pencil alternate icon"></i>友人帐</a>
+<!--        <a href="#" th:href="@{/picture}" class="m-item item m-mobile-hide"><i class="image icon"></i>照片墙</a>-->
+<!--        <a href="#" th:href="@{/resources}" class="m-item item m-mobile-hide"><i class="graduation cap icon"></i>资源库</a>-->
+        <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide"><i class="info icon"></i>关于我</a>
+        <a href="#" th:href="@{/admin}" class="right m-item item ui secondary basic button m-mobile-hide" target="_blank"><i class="sign in icon"></i>登录</a>
+
+    </div>
+  </div>
+    <a  class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+
+<!--顶部图片-->
+<div class="m-bg-type_outer" style="width: 100%;height: 50%">
+  <img src="../static/images/message.jpg" th:src="@{/images/message.jpg}" alt="" class="ui m-bg image" style="width: 100%;height: 100%">
+  <div class="m-bg-class_cover">
+    <div class="ui container" style="position: relative ;bottom: -540px;">
+      <div class="m-font-size-title m-right-bottom" align="center" style="font-family:'STXingkai'">留言板</div>
+      <div class="m-font-size-text-init-title m-margin-top" align="center">虽然只是短暂的擦身，相遇与分别，尽管如此，我却仍然想珍惜这所有的一切</div>
+
+    </div>
+  </div>
+</div>
+
+
+<span></span>
+
+<!--中间内容-->
+<div id="waypoint" class="m-margin- animated fadeIn">
+  <div class="ui container m-opacity box-shadow-max">
+      <!--                新增留言-->
+      <div class="ui bottom attached segment">
+      <div id="message-form" class="ui form">
+          <input type="hidden" name="parentMessage.id" >
+          <input type="hidden" name="rootMessage.id">
+          <!--                    留言区-->
+          <div class="field">
+              <textarea name="content" placeholder="请输入留言信息..."></textarea>
+          </div>
+
+          <div class="fields">
+              <!--                    输入姓名-->
+              <div class="field m-mobile-wide m-margin-bottom-small">
+                  <div class="ui left icon input">
+                      <i class="user icon"></i>
+                      <input type="text" name="nickname" placeholder="昵称" th:value="${session.user}!=null ? ${session.user.nickname}">
+                  </div>
+              </div>
+
+
+              <!--                        输入邮箱-->
+              <div class="field m-mobile-wide m-margin-bottom-small">
+                  <div class="ui left icon input">
+                      <i class="mail icon"></i>
+                      <input type="text" name="email" placeholder="邮件（请填写有效的邮件）" th:value="${session.user}!=null ? ${session.user.email}">
+                  </div>
+              </div>
+
+
+
+              <div class="right aligned two wide column">
+              <div class="field m-mobile-wide m-margin-bottom-small">
+                  <button id="messagepost-btn" type="button" class="ui teal button m-mobile-wide" onclick="javascript:{document.form1.submit();}" style="width:100px;height: 40px"><i class="edit icon"></i>发布</button>
+              </div>
+              </div>
+              <div class="aligned five wide column" style="margin: 10px">
+                  <!--                  <div class="ui active inline loader"></div>-->
+                  <p style="color: red">新增邮件回复功能，回复将会通过邮件形式提醒</p>
+              </div>
+
+      </div>
+
+      </div>
+      <!--留言区-->
+      <div  class="ui bottom attached m-margin-top">
+          <div class="ui teal segment" id="message-container" >
+<!--              onload="myfunction()"-->
+              <div th:fragment="messageList" >
+                  <div class="ui threaded comments" style="max-width: 100%;" >
+                      <h3 class="ui dividing header">留言</h3>
+<!--                      <div class="comment" th:each="message : ${messages}">-->
+                      <div class="comment"  th:each="message : ${page.list}">
+                          <a class="avatar">
+                              <img src="../static/image/me.jpg" th:src="@{${message.avatar}}">
+                          </a>
+                          <div class="content">
+                              <a class="author">
+                                  <span th:text="${message.nickname}">Matt</span>
+                                  <div class="ui mini basic teal left pointing label m-padded-mini" th:if="${message.adminMessage}">栈主</div>
+                              </a>
+                              <div class="metadata">
+                                  <span class="date" th:text="${#dates.format(message.createTime,'yyyy-MM-dd HH:mm')}">今天下午 5:42</span>
+                              </div>
+                              <div class="text" th:text="${message.content}">太赞了！ </div>
+                              <div class="actions">
+                                  <a class="reply" data-parentmessageid="1" data-messagenickname="Matt" data-rootmessageid="1" th:attr="data-parentmessageid=${message.id},data-messagenickname=${message.nickname},data-rootmessageid=${message.id}" onclick="reply(this)">回复</a>
+                                  <a class="delete" href="#" th:href="@{/message/{id}/delete(id=${message.id},pageNum=${page.pageNum})}" onclick="return confirm('确定要删除该评论吗？三思啊! 删了可就没了！')" th:if="${session.user}">删除</a>
+                              </div>
+                          </div>
+                          <!--子集留言-->
+                          <div class="comments" th:if="${#arrays.length(message.replyList)}>0">
+                              <div class="comment" th:each="reply : ${message.replyList}">
+                                  <a class="avatar">
+                                      <img src="../static/image/me.jpg" th:src="@{${reply.avatar}}">
+                                  </a>
+                                  <div class="content">
+                                      <a class="author">
+                                          <span th:text="${reply.nickname}">小红</span>
+                                          <div class="ui mini basic teal left pointing label m-padded-mini" th:if="${reply.adminMessage}">栈主</div>
+                                          &nbsp;<span th:text="|@ ${reply.parentMessage.nickname}|" class="m-teal">@ 小白</span>
+                                      </a>
+                                      <div class="metadata">
+                                          <span class="date" th:text="${#dates.format(reply.createTime,'yyyy-MM-dd HH:mm')}">今天下午 5:42</span>
+                                      </div>
+                                      <div class="text" th:text="${reply.content}">太赞了！ </div>
+                                      <div class="actions">
+                                          <a class="reply" data-parentmessageid="1" data-messagenickname="Matt" data-rootmessageid="1" th:attr="data-parentmessageid=${reply.id},data-messagenickname=${reply.nickname},data-rootmessageid=${message.id}" onclick="reply(this)">回复</a>
+                                          <a class="delete" href="#" th:href="@{/message/{id}/delete(id=${reply.id},pageNum=${page.pageNum})}" onclick="return confirm('确定要删除该评论吗？三思啊! 删了可就没了！')" th:if="${session.user}">删除</a>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+
+                  </div>
+
+<!--                  <hr class="m-margin-top-large">-->
+
+                  <!--分页-->
+<!--                  <div class="ui inverted divided stackable grid">-->
+<!--                      <div class="three wide column" align="center">-->
+<!--                          <a class="item" th:href="@{/message/(pageNum=${messages.hasPreviousPage}?${messages.prePage}:1)}" th:unless="${messages.isFirstPage}">上一页</a>-->
+<!--                      </div>-->
+
+<!--                      <div class="ten wide column" align="center">-->
+<!--                          <p> <span th:text="${messages.pageNum}"></span> / <span th:text="${messages.pages}"></span> </p>-->
+<!--                      </div>-->
+
+<!--                      <div class="three wide column" align="center">-->
+<!--                          <a class="item" th:href="@{/message/(pageNum=${messages.hasNextPage}?${messages.nextPage}:${messages.pages})}" th:unless="${messages.isLastPage}">下一页</a>-->
+<!--                      </div>-->
+<!--                  </div>-->
+
+
+              </div>
+          </div>
+<!--          分页-->
+          <div class="ui inverted divided stackable grid">
+              <div class="three wide column" align="center">
+                  <a class="item" th:href="@{/message/{pageNum}(pageNum=${page.prePage})}" th:unless="${page.isFirstPage}">上一页</a>
+              </div>
+
+              <div class="ten wide column" align="center">
+                  <p> <span th:text="${page.pageNum}"></span> / <span th:text="${page.pages}"></span> </p>
+              </div>
+
+              <div class="three wide column" align="center">
+                  <a class="item" th:href="@{/message/{pageNum}(pageNum=${page.nextPage})}" th:unless="${page.isLastPage}">下一页</a>
+              </div>
+          </div>
+
+      </div>
+      </div>
+    <br>
+    <br>
+    <br>
+
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+
+
+<!--置顶图标-->
+<div id="toolbar" class="m-padded-tb-large m-fixed m-right-bottom">
+    <a href="#" class="ui center aligned basic segment icon"><i class="ui medium orange chevron up icon"></i> </a>
+</div>
+
+
+
+<!--底部栏-->
+<footer class="ui inverted vertical segment m-padded-tb-massive m-opacity">
+    <!--容器-->
+    <div class="ui center aligned container">
+      <div class="ui inverted divided stackable grid">
+        <div class="four wide column">
+          <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced m-margin-top-max" >联系我</div>
+          <!--<div id="newblog-container">-->
+          <!--<div class="ui inverted link list" th:fragment="newblogList">-->
+          <!--<a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">最新文章</a>-->
+          <!--</div>-->
+          <!--</div>-->
+          <div class="ui inverted link list">
+            <div href="#" class="m-text-thin">Email：1583296383@qq.com</div>
+            <div href="#" class="m-text-thin">QQ：1583296383</div>
+          </div>
+        </div>
+
+        <div class="four wide column" >
+          <div class="ui inverted link list">
+            <div class="item">
+              <!--微信二维码-->
+              <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced " >微信</div>
+              <img src="../static/images/wechat.jpg" th:src="@{/images/wechat.jpg}"  class="ui m-margin-top rounded image" alt="" style="width: 110px">
+            </div>
+          </div>
+        </div>
+
+        <div class="four wide column">
+          <div class="ui inverted link list">
+            <div class="item">
+              <!--微信二维码-->
+              <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced " >QQ</div>
+              <img src="../static/images/qq.jpg" th:src="@{/images/qq.jpg}"  class="ui m-margin-top rounded image" alt="" style="width: 110px">
+            </div>
+          </div>
+        </div>
+        <!--博客运行时间统计-->
+        <div class="four wide column">
+          <div style="font-size: large;font-weight: bold" class="ui inverted  m-text-thin m-text-spaced m-margin-top">客栈信息</div>
+          <!--<p id="htmer_time" class="item m-text-thin"></p>-->
+          <div id="blog-message">
+            <div class="ui inverted link list" style="align-content: center;margin-top: 10px" th:fragment="blogMessage">
+              <div class="m-text-thin" style="text-align: left;margin-left: 75px;">
+                文章总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${blogTotal}"> 14 </h2> 篇
+              </div>
+              <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                访问总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${blogViewTotal}"> 14 </h2> 次
+              </div>
+              <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                评论总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${blogCommentTotal}"> 14 </h2> 条
+              </div>
+              <div class="m-text-thin" style="text-align: left;margin-left: 75px">
+                留言总数： <h2 class="ui orange header m-inline-block m-margin-top-null" style="font-size:medium;" th:text="${blogMessageTotal}"> 14 </h2> 条
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui inverted section divider"></div>
+      <div style="color: #F08047;margin-top: -18px" class="ui inverted m-text-thin m-text-spaced">我的客栈已营业：<span id="htmer_time" class="item m-text-thin"></span> (*๓´╰╯`๓)</div>
+      <a rel="nofollow" href="http://www.beian.miit.gov.cn" target="_blank">粤ICP备2022122083号-1</a>
+    </div>
+    </div>
+
+</footer>
+<!--    动态线条-->
+<script type="text/javascript" color="47,79,79" opacity='0.7' zIndex="-2" count="150" src="https://cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+<script src="../static/lib/jquery-3.2.1/jquery-3.2.1.min.js" th:src="@{/lib/jquery-3.2.1/jquery-3.2.1.min.js}"></script>
+<script src="../static/lib/semantic/dist/semantic.min.js" th:src="@{/lib/semantic/dist/semantic.min.js}"></script>
+
+
+
+<script th:inline="javascript">
+    // $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+
+    $('#blog-message').load(/*[[@{/footer/blogmessage}]]*/"/footer/blogmessage");
+
+    // $(function () {
+    //     $("#message-container").load(/*[[@{/messagecomment}]]*/"messagecomment");
+    // });
+    // 运行时间统计
+    function secondToDate(second) {
+        if (!second) {
+            return 0;
+        }
+        var time = new Array(0, 0, 0, 0, 0);
+        if (second >= 365 * 24 * 3600) {
+            time[0] = parseInt(second / (365 * 24 * 3600));
+            second %= 365 * 24 * 3600;
+        }
+        if (second >= 24 * 3600) {
+            time[1] = parseInt(second / (24 * 3600));
+            second %= 24 * 3600;
+        }
+        if (second >= 3600) {
+            time[2] = parseInt(second / 3600);
+            second %= 3600;
+        }
+        if (second >= 60) {
+            time[3] = parseInt(second / 60);
+            second %= 60;
+        }
+        if (second > 0) {
+            time[4] = second;
+        }
+        return time;
+    }
+    function setTime() {
+        /*此处为网站的创建时间*/
+        var create_time = Math.round(new Date(Date.UTC(2022, 8, 21, 15, 15, 15)).getTime() / 1000);
+        var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
+        currentTime = secondToDate((timestamp - create_time));
+        currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
+            + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
+            + '秒';
+        document.getElementById("htmer_time").innerHTML = currentTimeHtml;
+    }
+    setInterval(setTime, 1000);
+
+
+
+
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.wechat').popup({
+        popup : $('.wechat-qr'),
+        position: 'bottom center'
+    });
+    $('.qq').popup();
+
+
+    //评论表单验证
+    $('.ui.form').form({
+        fields: {
+            title: {
+                identifier: 'content',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入评论内容'
+                }
+                ]
+            },
+            content: {
+                identifier: 'nickname',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入你的大名'
+                }]
+            },
+            type: {
+                identifier: 'email',
+                rules: [{
+                    type: 'email',
+                    prompt: '请填写正确的邮箱地址'
+                }]
+            }
+        }
+    });
+
+    // function myfunction(){
+    //     $("#message-container").load(/*[[@{/messagecomment}]]*/);
+    // }
+    //
+
+
+    // 校验信息
+    $('#messagepost-btn').click(function () {
+        var boo = $('.ui.form').form('validate form');
+        if (boo) {
+            console.log('校验成功');
+            postData();
+        } else {
+            console.log('校验失败');
+        }
+    });
+
+
+
+    //发送请求给后端
+    function postData() {
+        $("#message-container").load(/*[[@{/message(pageNum=${page.pageNum})}]]*/"",{
+            "parentMessage.id" : $("[name='parentMessage.id']").val(),
+            "rootMessage.id" : $("[name='rootMessage.id']").val(),
+            // "blog.id" : $("[name='blog.id']").val(),
+            "nickname": $("[name='nickname']").val(),
+            "email"   : $("[name='email']").val(),
+            "content" : $("[name='content']").val()
+        },function (responseTxt, statusTxt, xhr) {
+//        $(window).scrollTo($('#message-container'),500);
+            clearContent();
+        });
+
+    }
+
+    // 清除表单
+    function clearContent() {
+        $("[name='content']").val('');
+        $("[name='parentMessage.id']").val(null);
+        $("[name='rootMessage.id']").val(null);
+        $("[name='content']").attr("placeholder", "请输入评论信息...");
+    }
+
+    function reply(obj) {
+        var rootMessageId = $(obj).data('rootmessageid');
+        var parentmessageId = $(obj).data('parentmessageid');
+        var messageNickname = $(obj).data('messagenickname');
+        $("[name='content']").attr("placeholder", "@"+messageNickname).focus();
+        $("[name='parentMessage.id']").val(parentmessageId);
+        $("[name='rootMessage.id']").val(rootMessageId);
+        $(window).scrollTo(0,500);
+    }
+
+</script>
+</body>
+</html>

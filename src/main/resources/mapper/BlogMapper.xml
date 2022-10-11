@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenzhen.blog.mapper.BlogMapper">
+
+    <resultMap id="BaseResultMap" type="com.chenzhen.blog.pojo.Blog">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="firstPicture" column="first_picture" jdbcType="VARCHAR"/>
+            <result property="commentabled" column="commentabled" jdbcType="BIT"/>
+            <result property="appreciation" column="appreciation" jdbcType="BIT"/>
+            <result property="published" column="published" jdbcType="BIT"/>
+            <result property="recommend" column="recommend" jdbcType="BIT"/>
+            <result property="shareStatement" column="share_statement" jdbcType="BIT"/>
+            <result property="copyright" column="copyright" jdbcType="INTEGER"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="views" column="views" jdbcType="INTEGER"/>
+            <result property="commentCount" column="comment_count" jdbcType="INTEGER"/>
+            <association property="type" javaType="Type">
+                <id property="id" column="type_id"></id>
+                <result property="name" column="type_name"></result>
+            </association>
+
+    </resultMap>
+
+
+
+    <select id="getSomeFieldsOnBlogsPage" resultMap="BaseResultMap">
+        select id,title,description,published,recommend,copyright,views,comment_count,
+               create_time,update_time,type_id
+        from t_blog
+    </select>
+    <insert id="insertBlog">
+        insert into t_blog
+        (id, title, content,
+         description, first_picture, commentabled,
+         appreciation, published, recommend,
+         share_statement, copyright, create_time,
+         update_time, views, comment_count,type_id)
+        values (#{id,jdbcType=NUMERIC}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
+                #{description,jdbcType=VARCHAR}, #{firstPicture,jdbcType=VARCHAR}, #{commentabled},
+                #{appreciation}, #{published}, #{recommend},
+                #{shareStatement}, #{copyright,jdbcType=NUMERIC}, #{createTime,jdbcType=TIMESTAMP},
+                #{updateTime,jdbcType=TIMESTAMP}, #{views,jdbcType=NUMERIC}, #{commentCount,jdbcType=NUMERIC},
+                #{type.id})
+
+    </insert>
+
+    <select id="getSomeFieldsOnEditPage" resultMap="BaseResultMap">
+        select id,title,content,description,first_picture,commentabled,appreciation,published,recommend,share_statement,copyright,type_id
+        from t_blog
+        where id = #{blogId}
+
+
+    </select>
+    <update id="updateSelective">
+        update t_blog
+        <set>
+            <if test="title != null">title=#{title,jdbcType=VARCHAR},</if>
+            <if test="content != null">content=#{content,jdbcType=VARCHAR},</if>
+            <if test="description != null">description=#{description,jdbcType=VARCHAR},</if>
+            <if test="firstPicture != null">first_picture=#{firstPicture,jdbcType=VARCHAR},</if>
+            <if test="commentabled != null">commentabled=#{commentabled},</if>
+            <if test="appreciation != null">appreciation=#{appreciation},</if>
+            <if test="published != null">published=#{published},</if>
+            <if test="recommend != null">recommend=#{recommend},</if>
+            <if test="shareStatement != null">share_statement=#{shareStatement},</if>
+            <if test="copyright != null">copyright=#{copyright,jdbcType=NUMERIC},</if>
+            <if test="createTime != null">create_time=#{createTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">update_time=#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="type != null">type_id=#{type.id},</if>
+        </set>
+        where id = #{id,jdbcType=NUMERIC}
+    </update>
+
+    <select id="getSomeFieldsOnIndexPage" resultMap="BaseResultMap">
+        select b.id,b.title,b.description,b.first_picture,b.commentabled,b.appreciation,b.recommend,b.share_statement,b.copyright,b.views,b.comment_count,
+               b.update_time,b.create_time,b.type_id,t.name type_name
+        from t_blog b
+        join t_type t on b.type_id = t.id
+        where b.published = 1
+    </select>
+
+    <select id="getRecommendList" resultMap="BaseResultMap">
+        select id,title,first_picture
+        from t_blog
+        where published = 1 and recommend = 1
+        order by update_time  desc
+        limit 4
+    </select>
+
+    <select id="getBlogDetail" resultMap="BaseResultMap">
+        select id,title,content,description,first_picture,commentabled,appreciation,published,
+               recommend,share_statement,copyright,views,comment_count,update_time,create_time,type_id
+        from t_blog
+        where id = #{id} and published = 1
+    </select>
+
+    <update id="updateViews">
+        update t_blog
+        set views = views + 1
+        where id = #{blogId}
+    </update>
+
+    <update id="updateCommentCount">
+        update t_blog
+        set comment_count = comment_count + 1
+        where id = #{blogId}
+    </update>
+
+    <select id="getBlogListByTypeId" resultMap="BaseResultMap">
+        select b.id,b.title,b.description,b.first_picture,b.commentabled,b.appreciation,b.recommend,b.share_statement,b.copyright,b.views,b.comment_count,
+               b.update_time,b.create_time,b.type_id,t.name type_name
+        from t_blog b
+        join t_type t on b.type_id = t.id
+        where b.published = 1 and b.type_id = #{typeId}
+    </select>
+    
+    <select id="getArchivesList" resultMap="BaseResultMap">
+        select id,title,first_picture,create_time
+        from t_blog
+        where published = 1
+        order by create_time desc
+    </select>
+
+    <select id="countViews" resultType="long">
+        select sum(views)
+        from t_blog
+    </select>
+
+    <select id="getTitleById" resultType="string">
+        select title
+        from t_blog
+        where id = #{id}
+    </select>
+
+
+
+
+</mapper>
