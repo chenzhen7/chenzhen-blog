@@ -16,5 +16,5 @@ Sql文件我放在根目录下不要忘了哦
 
 1.运行项目之前先在yaml配置文件配置好数据源，这个不用多说了吧，我这边用的是Mysql8.0.11的版本，注意版本兼容的问题。
 
-2.要配置yaml中的邮箱地址（username）和授权码（password），具体怎么配置可以看我博客文章 https://www.chenzhen.space/blog/32 。
+2.要配置yaml中的邮箱地址（username）和授权码（password），具体怎么配置可以看我博客文章 https://www.chenzhen.space/blog/28 。
 
