@@ -22,6 +22,8 @@
 
 # ChenZhen的博客
 
+该项目技术栈(后端)：springboot + mybatis-Plus + Thymeleaf .....
+
 在这里先感谢**李仁密**老师的b站视频：【SpringBoot开发一个小而美的个人博客】https://www.bilibili.com/video/BV1nE411r7TF?share_source=copy_web&vd_source=d8832ef814411d4572d6eb1d6763a454
 
 和**onestar**大佬：博客地址：[首页-ONESTARの客栈](https://onestar.newstar.net.cn/)
