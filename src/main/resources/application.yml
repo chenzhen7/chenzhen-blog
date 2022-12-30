@@ -20,6 +20,9 @@ spring:
     password: xxxx #配置申请到的授权码
     protocol: smtp #协议
     thymeleaf-html: mail  #设置要解析发送的html模版
+    myname: ChenZhen  #改为你的网名
+
+
 #  redis:
 #    host: xxxxx #Redis服务器的Ip
 #    port: 6379

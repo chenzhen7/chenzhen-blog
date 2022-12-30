@@ -12,6 +12,7 @@ import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +36,11 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message>
     private MailUtil mailUtil;
     @Autowired
     private MessageMapper messageMapper;
+
+    @Value("${spring.mail.username}") //从yaml配置文件中获取
+    private String myMail; //我自己的邮箱地址
+    @Value("${spring.mail.myname}")
+    private String myName;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -79,7 +85,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message>
                 Message parentMessage = messageMapper.selectById(message.getParentMessage().getId());//获取父评论
                 Mail mail = new Mail(null, parentMessage.getEmail(), parentMessage.getNickname(), parentMessage.getContent(),
                         message.getNickname(), message.getContent(),
-                        "/message", "您在《ChenZhen的客栈-留言板》中的评论有了新的回复！");
+                        "/message", "您在《"+myName+"的客栈-留言板》中的评论有了新的回复！");
 
                 mailUtil.sendThymeleafEmail(mail);
             }
@@ -88,9 +94,9 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message>
             if (message.getParentMessage().getId()==null || message.getParentMessage()==null){
                 //如果是根评论
                 //发给我自己，提醒有人在留言板留言了
-                Mail mail = new Mail(null, "1583296383@qq.com", "ChenZhen", null,
+                Mail mail = new Mail(null, myMail, myName, null,
                         message.getNickname(), message.getContent(),
-                        "/message","在《ChenZhen的客栈-留言板》中有了新的留言！");
+                        "/message","在《"+myName+"的客栈-留言板》中有了新的留言！");
 
                 mailUtil.sendThymeleafEmail(mail);
 
@@ -100,7 +106,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message>
                 Message parentMessage = messageMapper.selectById(message.getParentMessage().getId());//获取父评论
                 Mail mail = new Mail(null,parentMessage.getEmail(),parentMessage.getNickname(),
                         parentMessage.getContent(),message.getNickname(),message.getContent(),
-                        "/message","您在《ChenZhen的客栈-留言板》中的评论有了新的回复！");
+                        "/message","您在《"+myName+"的客栈-留言板》中的评论有了新的回复！");
 
                 mailUtil.sendThymeleafEmail(mail);
 

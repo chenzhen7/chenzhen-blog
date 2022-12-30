@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.chenzhen</groupId>
     <artifactId>blog</artifactId>
-    <version>1.5.0-SNAPSHOT</version>
+    <version>1.5.2-SNAPSHOT</version>
     <name>blog</name>
     <description>blog</description>
     <properties>

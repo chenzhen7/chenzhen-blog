@@ -7,6 +7,7 @@ import com.chenzhen.blog.service.CommentService;
 import com.chenzhen.blog.mapper.CommentMapper;
 import com.chenzhen.blog.util.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +32,12 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     private CommentMapper commentMapper;
     @Autowired
     private MailUtil mailUtil;
+
+    @Value("${spring.mail.username}") //从yaml配置文件中获取
+    private String myMail; //我自己的邮箱地址
+    @Value("${spring.mail.myname}")
+    private String myName;
+
 
     @Override
     public List<Comment> getRootCommentList(Long blogId) {
@@ -76,7 +83,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
 
                 Mail mail = new Mail(null, parentComment.getEmail(), parentComment.getNickname(), parentComment.getContent(),
                         comment.getNickname(), comment.getContent(),
-                        "/blog/"+comment.getBlog().getId(), "您在ChenZhen的博客《"+title+"》中的评论有了新的回复！");
+                        "/blog/"+comment.getBlog().getId(), "您在"+myName+"的博客《"+title+"》中的评论有了新的回复！");
                 mailUtil.sendThymeleafEmail(mail);
             }
         }else {
@@ -84,9 +91,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
             if (comment.getParentComment().getId()==null || comment.getParentComment()==null){
                 //如果是根评论
                 //发给我自己，提醒有人在留言板留言了
-                Mail mail = new Mail(null, "1583296383@qq.com", "ChenZhen", null,
+                Mail mail = new Mail(null, myMail, myName, null,
                         comment.getNickname(), comment.getContent(),
-                        "/blog/"+comment.getBlog().getId(),"您在ChenZhen的博客《"+title+"》中有了新的评论！");
+                        "/blog/"+comment.getBlog().getId(),"您在"+myName+"的博客《"+title+"》中有了新的评论！");
                 mailUtil.sendThymeleafEmail(mail);
 
             }else{
@@ -95,7 +102,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
                 Comment parentComment = commentMapper.selectById(comment.getParentComment().getId());//获取父评论
                 Mail mail = new Mail(null,parentComment.getEmail(),parentComment.getNickname(),
                         parentComment.getContent(),comment.getNickname(),comment.getContent(),
-                        "/blog/"+comment.getBlog().getId(),"您在ChenZhen的博客《"+title+"》中的评论有了新的回复！");
+                        "/blog/"+comment.getBlog().getId(),"您在"+myName+"的博客《"+title+"》中的评论有了新的回复！");
                 mailUtil.sendThymeleafEmail(mail);
 
             }

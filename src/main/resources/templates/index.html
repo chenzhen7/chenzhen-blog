@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta name="baidu-site-verification" content="U67Xy1Qfos" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>首页-ChenZhen的客栈</title>
@@ -99,8 +98,8 @@
             <a href="#" th:href="@{/about}" class="ui circular icon button m-opacity-small item " th:classappend="${n==9} ? 'active'" target="_blank"><i class="info icon"></i>关于我</a>
         </div>
         <hr style="width: 40%"> <hr style="width: 40%">
-        <p class="m-font-size-text-init-title m-margin-top-large m-mobile-hide">“叶桜そっと色づいて 花が舞い落ちる”</p>
-        <p class="m-font-size-text-init-title m-mobile-hide">“悄然绽放的叶樱 正在随风飘落”</p>
+        <p class="m-font-size-text-init-title m-margin-top-large m-mobile-hide">“我以为忘了想念”</p>
+        <p class="m-font-size-text-init-title m-mobile-hide">“而面对夕阳希望你回到今天”</p>
         <div class="hiddenDiv"></div>
     </div>
 
@@ -385,7 +384,7 @@
     }
     function setTime() {
         /*此处为网站的创建时间*/
-        var create_time = Math.round(new Date(Date.UTC(2022, 8, 21, 15, 15, 15)).getTime() / 1000);
+        var create_time = Math.round(new Date(Date.UTC(2022, 11, 21, 15, 15, 15)).getTime() / 1000);//这里月份以0开始
         var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
         currentTime = secondToDate((timestamp - create_time));
         currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
