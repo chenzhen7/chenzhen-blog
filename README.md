@@ -1,14 +1,6 @@
-作者：ChenZhen
-
-博客地址：https://www.chenzhen.space/
-
-版权：本文为博主 ChenZhen 的原创文章，本文版权归作者所有，转载请附上原文出处链接及本声明。
-
-源码地址：https://github.com/chenzhen7/chenzhen-blog
-
-如果对你有帮助，请给一个小小的star⭐
-
-
+# 注意!!!!!!
+该项目（博客1.0）已经不再更新维护，请转到博客2.0，[https://github.com/chenzhen7/cz-blog](https://github.com/chenzhen7/cz-blog)此项目会保持更新和维护。
+此代码仍然可以拷贝运行，但不会再更新。
 
 ---
 
