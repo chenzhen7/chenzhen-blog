@@ -1,6 +1,8 @@
 # 注意!!!!!!
-该项目（博客1.0）已经不再更新维护，请转到博客2.0，[https://github.com/chenzhen7/cz-blog](https://github.com/chenzhen7/cz-blog)此项目会保持更新和维护。
-此代码仍然可以拷贝运行，但不会再更新。
+该项目（博客1.0）已经不再更新维护，请转到博客2.0，[https://github.com/chenzhen7/cz-blog](https://github.com/chenzhen7/cz-blog)
+
+此代码仍然可以拷贝运行，但不会再更新和维护，建议使用新的博客2.0项目（以后会作为稳定版本持续维护和更新），博客2.0使用新的前后端架构springboot + Thymeleaf + vue + bootstrap + elementui  ，页面更加简洁美观，后台功能更加丰富
+
 
 ---
 
